@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/records.css">
+    <script src="./script.js" defer></script>
+    <title>CRUS Users</title>
+</head>
+<body>
+    
+    <header>
+
+        <h1 class="header-title">register client</h1>
+
+    </header>
+
+    <main>
+
+        <button type="button" class="button blue" id="registerUser">Register User</button>
+
+        <table class="records">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Eric</td>
+                    <td>ericsouza@gmail.com</td>
+                    <td>(11) 98730-9635</td>
+                    <td>São paulo</td>
+                    <td>
+
+                        <button type="button" class="button green">update</button>
+                        <button type="button" class="button red">Delete</button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="modal" id="modal">
+
+            <section class="modal-content">
+
+                <header class="modal-header">
+
+                    <h2>New User</h2>
+
+                    <span class="modal-close" id="modalClose">&#10006</span>
+
+                </header>
+
+                <form class="modal-form">
+
+                    <input type="text" class="modal-field" placeholder="enter your name">
+
+                    <input type="email" class="modal-field" placeholder="enter your email">
+
+                    <input type="number" class="modal-field" placeholder="enter your phone">
+
+                    <input type="text" class="modal-field" placeholder="enter your city">
+
+                </form>
+
+                <footer class="modal-footer">
+
+                    <button class="button green">
+                        Save
+                    </button>
+
+                    <button class="button blue">
+                        Cancel
+                    </button>
+
+                </footer>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        Copyright &copy: Eric Souza
+
+    </footer>
+
+</body>
+</html>
