@@ -10,7 +10,7 @@ document.getElementById('registerUser').addEventListener('click', openModal);
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
 
-const CalcValues = (event) =>{
+const Execute = (event) =>{
 
     event.preventDefault()
 
@@ -97,8 +97,8 @@ const BuildTable = (listUsers) => {
             </td>
 
             <td data-cell="buttons">
-                <button type="button" class="button green" onclick="DeleteUser()">update</button>
-                <button type="button" class="button red" onclick="DeleteUser(id)">Delete</button>
+                <button type="button" class="button green" onclick="updateUser(${people.id}, '${people.name}', '${people.phone}', '${people.city}', '${people.email}')">update</button>
+                <button type="button" class="button red" onclick="deleteUser(${people.id})">Delete</button>
             </td>
 
             </tr>
@@ -111,21 +111,32 @@ const BuildTable = (listUsers) => {
 
 }
 
-const foundUser = () => {
+const updateUser = (id, name, phone, city, email) => {
+    let listUsers = JSON.parse(localStorage.getItem("userRegistration"));
+    const userIndex = listUsers.findIndex(user => user.id === id);
 
-    let listDeleteUsers = []
+    if (userIndex !== -1) {
+        const newName = document.getElementById('name').value=name
+        const newEmail = document.getElementById('email').value=email
+        const newCity = document.getElementById('city').value=city
+        const newPhone = document.getElementById('phone').value=phone
 
+        listUsers[userIndex].name = newName;
+        listUsers[userIndex].phone = newPhone;
+        listUsers[userIndex].city = newCity;
+        listUsers[userIndex].email = newEmail;
 
+        localStorage.setItem("userRegistration", JSON.stringify(listUsers));
 
+        LoadUser();
+
+        openModal();
+    }
 }
 
-const DeleteUser = (id) => {
-
-    const findId = this.get()
-    const foundUser = findId.filter(find => find.id !== id)
-    this.set(foundUser)
-    this.get()
-
-    window.location.reload()
-
+const deleteUser = (id) => {
+    let listUsers = JSON.parse(localStorage.getItem("userRegistration"))
+    listUsers = listUsers.filter(user => user.id !== id)
+    localStorage.setItem("userRegistration", JSON.stringify(listUsers))
+    LoadUser()
 }
