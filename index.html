@@ -38,7 +38,7 @@
 
             </thead>
 
-            <tbody>
+            <tbody id="table-body">
 
                 <tr>
 
@@ -71,29 +71,30 @@
 
                 </header>
 
-                <form class="modal-form">
+                <form method="post" onsubmit="CalcValues(event)" class="modal-form">
 
-                    <input type="text" class="modal-field" placeholder="enter your name">
+                    <input type="text" class="modal-field" placeholder="enter your name" id="name">
 
-                    <input type="email" class="modal-field" placeholder="enter your email">
+                    <input type="email" class="modal-field" placeholder="enter your email" id="email">
 
-                    <input type="number" class="modal-field" placeholder="enter your phone">
+                    <input type="number" class="modal-field" placeholder="enter your phone" id="phone">
 
-                    <input type="text" class="modal-field" placeholder="enter your city">
-
-                </form>
+                    <input type="text" class="modal-field" placeholder="enter your city" id="city">
 
                 <footer class="modal-footer">
 
-                    <button class="button green">
+                    <button class="button green" type="submit">
                         Save
                     </button>
 
-                    <button class="button blue">
+                    <button class="button blue" type="reset">
                         Cancel
                     </button>
 
                 </footer>
+
+            </form>
+
 
             </section>
 
