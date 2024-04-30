@@ -21,6 +21,8 @@ const Execute = (event) =>{
     window.location.reload();
 }
 
+
+
 const GetValuesUsers = () => {
 
     const name = document.getElementById('name').value
@@ -109,29 +111,6 @@ const BuildTable = (listUsers) => {
 
     table.innerHTML = template
 
-}
-
-const updateUser = (id, name, phone, city, email) => {
-    let listUsers = JSON.parse(localStorage.getItem("userRegistration"));
-    const userIndex = listUsers.findIndex(user => user.id === id);
-
-    if (userIndex !== -1) {
-        const newName = document.getElementById('name').value=name
-        const newEmail = document.getElementById('email').value=email
-        const newCity = document.getElementById('city').value=city
-        const newPhone = document.getElementById('phone').value=phone
-
-        listUsers[userIndex].name = newName;
-        listUsers[userIndex].phone = newPhone;
-        listUsers[userIndex].city = newCity;
-        listUsers[userIndex].email = newEmail;
-
-        localStorage.setItem("userRegistration", JSON.stringify(listUsers));
-
-        LoadUser();
-
-        openModal();
-    }
 }
 
 const deleteUser = (id) => {
