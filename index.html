@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/records.css">
-    <script src="./script.js" defer></script>
+    <script src="crud.js" defer></script>
     <title>CRUD Users</title>
 </head>
 <body>
@@ -40,7 +40,7 @@
 
             <tbody id="table-body">
 
-                <tr>
+                <!-- <tr>
 
                     <td>Eric</td>
                     <td>ericsouza@gmail.com</td>
@@ -53,7 +53,7 @@
 
                     </td>
 
-                </tr>
+                </tr> -->
 
             </tbody>
 
@@ -65,13 +65,13 @@
 
                 <header class="modal-header">
 
-                    <h2>New User</h2>
+                    <h2 id="title-modal">New User</h2>
 
                     <span class="modal-close" id="modalClose">&#10006</span>
 
                 </header>
 
-                <form method="post" onsubmit="Execute(event)" id="form" class="modal-form">
+                <form method="post" onsubmit="ExecuteUser(event)" id="form" class="modal-form">
 
                     <input type="text" class="modal-field" placeholder="enter your name" id="name">
 
@@ -83,11 +83,11 @@
 
                 <footer class="modal-footer">
 
-                    <button class="button green" type="submit">
+                    <button class="button green" type="submit" id="save-Value">
                         Save
                     </button>
 
-                    <button class="button blue" type="reset">
+                    <button class="button blue" type="reset" id="reset-value">
                         Cancel
                     </button>
 
