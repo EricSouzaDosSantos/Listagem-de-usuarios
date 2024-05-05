@@ -167,12 +167,13 @@ const BuildTable = (listUsers) => {
 
 
 const updateUserInfo = (id) => {
+
     const updateName = document.getElementById('name').value
     const updateEmail = document.getElementById('email').value
     const updatePhone = document.getElementById('phone').value
     const updateCity = document.getElementById('city').value 
 
-    const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
+    const userList = JSON.parse(localStorage.getItem('userRegistration')) || [];
 
     const userIndexFind = userList.findIndex(user => user.id == id)
 
@@ -184,7 +185,9 @@ const updateUserInfo = (id) => {
         userList[userIndexFind].city = updateCity
 
         localStorage.setItem('userRegistration', JSON.stringify(userList))
+
     }
+
 }
 
 const updateUser = (id) => {
@@ -195,7 +198,7 @@ const updateUser = (id) => {
     document.getElementById('save-Value').innerText = "Update"
 
     let form = document.getElementById('form')
-    form.removeEventListener('submit', ExecuteUser)
+    form.onsubmit = null;
 
     let retornData = JSON.parse(localStorage.getItem("userRegistration"))
 
@@ -208,7 +211,7 @@ const updateUser = (id) => {
         document.getElementById('phone').value = retornData.phone
         document.getElementById('city').value = retornData.city
 
-        form.addEventListener('submit', () => updateUserInfo(id))
+        form.onsubmit = () => updateUserInfo(id)
 
     }
 
