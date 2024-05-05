@@ -71,7 +71,7 @@ const LoadUser = () => {
 }
 
 
-window.addEventListener('DOMContentLoaded', () => LoadUser)
+window.addEventListener('DOMContentLoaded', LoadUser)
 
 const BuildTable = (listUsers) => {
 
@@ -79,7 +79,7 @@ const BuildTable = (listUsers) => {
 
     let template = ""
 
-    listUsers.forEach((people) => {
+    listUsers.forEach(people => {
 
         template += `
         
@@ -195,13 +195,13 @@ const updateUser = (id) => {
     document.getElementById('save-Value').innerText = "Update"
 
     let form = document.getElementById('form')
-    form.removeEventListener('submit', Execute)
+    form.removeEventListener('submit', ExecuteUser)
 
     let retornData = JSON.parse(localStorage.getItem("userRegistration"))
 
     retornData = retornData.find(user => user.id === id)
 
-    if (retornData) {
+    if (retornData !== undefined) {
 
         document.getElementById('name').value = retornData.name
         document.getElementById('email').value = retornData.email
@@ -209,7 +209,9 @@ const updateUser = (id) => {
         document.getElementById('city').value = retornData.city
 
         form.addEventListener('submit', () => updateUserInfo(id))
+
     }
+
 }
 
 
