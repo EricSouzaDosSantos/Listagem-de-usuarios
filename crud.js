@@ -1,5 +1,8 @@
 const openModal = () => {
     document.getElementById('modal').classList.add('active')
+
+    document.getElementById('title-modal').innerText = "New User"
+    document.getElementById('save-Value').innerText = "Save"
 }
 
 const closeModal = () => {
@@ -10,16 +13,18 @@ document.getElementById('registerUser').addEventListener('click', openModal);
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
 
-const Execute = (event) =>{
+const ExecuteUser = () => {
 
-    event.preventDefault()
-
-    let dataUsers = GetValuesUsers() 
+    let dataUsers = GetValuesUsers()
 
     CreateUsers(dataUsers)
-    
+
     window.location.reload();
 }
+
+document.getElementById('save-Value').addEventListener('click', ExecuteUser)
+
+
 
 const GetValuesUsers = () => {
 
@@ -61,18 +66,18 @@ const LoadUser = () => {
     if (localStorage.getItem("userRegistration")) {
         listUsers = JSON.parse(localStorage.getItem("userRegistration"))
     }
-        BuildTable(listUsers)
-    
+    BuildTable(listUsers)
+
 }
 
 
-window.addEventListener('DOMContentLoaded', () => LoadUser())
+window.addEventListener('DOMContentLoaded', LoadUser)
 
 const BuildTable = (listUsers) => {
 
     let table = document.getElementById('table-body');
 
-    let template = "";
+    let template = ""
 
     listUsers.forEach(people => {
 
@@ -113,76 +118,52 @@ const BuildTable = (listUsers) => {
 
 function updateUser(id) {
     openModal();
-  
+
     document
-      .getElementById("form")
-      .removeEventListener("submit", Execute);
-  
+        .getElementById('save-Value')
+        .removeEventListener("click", ExecuteUser);
+
     document.getElementById("title-modal").innerText = "Atualizar usuário";
-    document.getElementById("saveValue").innerText = "Atualizar";
-  
+    document.getElementById("save-Value").innerText = "Atualizar";
+
     const retornoData = JSON.parse(localStorage.getItem("userRegistration"));
-  
+
     const usuarioEncontrado = retornoData.find(
-      (userFind) => userFind.id == id
+        (userFind) => userFind.id == id
     );
-  
-    if (usuarioEncontrado === undefined) {
 
-        document.getElementById('name').value = usuarioEncontrado.name
-        document.getElementById('email').value = usuarioEncontrado.email
-        document.getElementById('phone').value = usuarioEncontrado.phone
-        document.getElementById('city').value = usuarioEncontrado.city
+    document.getElementById('city').value = usuarioEncontrado.city
+    document.getElementById('name').value = usuarioEncontrado.name
+    document.getElementById('email').value = usuarioEncontrado.email
+    document.getElementById('phone').value = usuarioEncontrado.phone
 
-    }
     document
-      .getElementById("form")
-      .addEventListener("submit", () => updateUserInfos(id));
-  }
-  
-  function updateUserInfos(id) {
+        .getElementById('save-Value').addEventListener('click', () => updateUserInfos(id))
+}
+
+function updateUserInfos(id) {
     const newName = document.getElementById("name").value;
     const newEmail = document.getElementById("email").value;
     const newCel = document.getElementById("phone").value;
     const newCity = document.getElementById("city").value;
-    
+
     const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
-  
-    const userIndexFind = userList.findIndex((user) => user.idUser == id);
-  
+
+    const userIndexFind = userList.findIndex((user) => user.id == id);
+
     if (userIndexFind !== -1) {
-      userList[userIndexFind].name = newName;
-      userList[userIndexFind].email = newEmail;
-      userList[userIndexFind].phone = newCel;
-      userList[userIndexFind].city = newCity;
-  
-      localStorage.setItem('userRegistration', JSON.stringify(userList))
+        userList[userIndexFind].name = newName;
+        userList[userIndexFind].email = newEmail;
+        userList[userIndexFind].phone = newCel;
+        userList[userIndexFind].city = newCity;
+
+        localStorage.setItem('userRegistration', JSON.stringify(userList))
     }
+
+    closeModal();
+    window.location.reload();
 }
-  
 
-// const updateUser = (id, name, phone, city, email) => {
-//     let listUsers = JSON.parse(localStorage.getItem("userRegistration"));
-//     const userIndex = listUsers.findIndex(user => user.id === id);
-
-//     if (userIndex !== -1) {
-//         const newName = document.getElementById('name').value=name
-//         const newEmail = document.getElementById('email').value=email
-//         const newCity = document.getElementById('city').value=city
-//         const newPhone = document.getElementById('phone').value=phone
-
-//         listUsers[userIndex].name = newName;
-//         listUsers[userIndex].phone = newPhone;
-//         listUsers[userIndex].city = newCity;
-//         listUsers[userIndex].email = newEmail;
-
-//         localStorage.setItem("userRegistration", JSON.stringify(listUsers));
-
-//         LoadUser();
-
-//         openModal();
-//     }
-// }
 
 const deleteUser = (id) => {
     let listUsers = JSON.parse(localStorage.getItem("userRegistration"))
@@ -190,3 +171,5 @@ const deleteUser = (id) => {
     localStorage.setItem("userRegistration", JSON.stringify(listUsers))
     LoadUser()
 }
+
+
