@@ -13,9 +13,7 @@ document.getElementById('registerUser').addEventListener('click', openModal);
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
 
-const ExecuteUser = (event) => {
-
-    event.preventDefault()
+const ExecuteUser = () => {
 
     let dataUsers = GetValuesUsers()
 
@@ -23,6 +21,8 @@ const ExecuteUser = (event) => {
 
     window.location.reload();
 }
+
+document.getElementById('save-Value').addEventListener('click', ExecuteUser)
 
 
 
@@ -116,105 +116,52 @@ const BuildTable = (listUsers) => {
 
 }
 
-// const updateUser = (id) => {
+function updateUser(id) {
+    openModal();
 
-//     openModal()
+    document
+        .getElementById('save-Value')
+        .removeEventListener("click", ExecuteUser);
 
-//     document.getElementById('title-modal').innerText = "Update User"
-//     document.getElementById('save-Value').innerText = "Update"
+    document.getElementById("title-modal").innerText = "Atualizar usuário";
+    document.getElementById("save-Value").innerText = "Atualizar";
 
-//     let form = document.getElementById('form')
-//     form.removeEventListener('submit', Execute)
+    const retornoData = JSON.parse(localStorage.getItem("userRegistration"));
 
-//     let retornData = JSON.parse(localStorage.getItem("userRegistration"))
+    const usuarioEncontrado = retornoData.find(
+        (userFind) => userFind.id == id
+    );
 
-//     retornData = retornData.find(user => user.id === id)
+    document.getElementById('city').value = usuarioEncontrado.city
+    document.getElementById('name').value = usuarioEncontrado.name
+    document.getElementById('email').value = usuarioEncontrado.email
+    document.getElementById('phone').value = usuarioEncontrado.phone
 
-//     if (retornData) {
-
-//         const updateName = document.getElementById('name').value = retornData.name
-//         const updateEmail = document.getElementById('email').value = retornData.email
-//         const updatePhone = document.getElementById('phone').value = retornData.phone
-//         const newCity = document.getElementById('city').value = retornData.city
-
-//         document.getElementById('saveValue').addEventListener('submit', () => updateUserInfo())
-//     }
-
-// }
-
-// const updateUserInfo = () => {
-//     const updateName = document.getElementById('name').value
-//     const updateEmail = document.getElementById('email').value
-//     const updatePhone = document.getElementById('phone').value
-//     const updateCity = document.getElementById('city').value 
-
-//     const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
-
-//     const userIndexFind = userList.findIndex(user => user.id == id)
-
-//     if(userIndexFind !== -1){
-
-//         userList[userIndexFind].name = updateName
-//         userList[userIndexFind].email = updateEmail
-//         userList[userIndexFind].phone = updatePhone
-//         userList[userIndexFind].city = updateCity
-
-//         localStorage.setItem('userRegistration')
-        
-// }
-// }
-
-
-
-const updateUserInfo = (id) => {
-
-    const updateName = document.getElementById('name').value
-    const updateEmail = document.getElementById('email').value
-    const updatePhone = document.getElementById('phone').value
-    const updateCity = document.getElementById('city').value 
-
-    const userList = JSON.parse(localStorage.getItem('userRegistration')) || [];
-
-    const userIndexFind = userList.findIndex(user => user.id == id)
-
-    if(userIndexFind !== -1){
-
-        userList[userIndexFind].name = updateName
-        userList[userIndexFind].email = updateEmail
-        userList[userIndexFind].phone = updatePhone
-        userList[userIndexFind].city = updateCity
-
-        localStorage.setItem('userRegistration', JSON.stringify(userList))
-
-    }
-
+    document
+        .getElementById('save-Value').addEventListener('click', () => updateUserInfos(id))
 }
 
-const updateUser = (id) => {
+function updateUserInfos(id) {
+    const newName = document.getElementById("name").value;
+    const newEmail = document.getElementById("email").value;
+    const newCel = document.getElementById("phone").value;
+    const newCity = document.getElementById("city").value;
 
-    openModal()
+    const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
 
-    document.getElementById('title-modal').innerText = "Update User"
-    document.getElementById('save-Value').innerText = "Update"
+    const userIndexFind = userList.findIndex((user) => user.id == id);
 
-    let form = document.getElementById('form')
-    form.onsubmit = null;
+    if (userIndexFind !== -1) {
+        userList[userIndexFind].name = newName;
+        userList[userIndexFind].email = newEmail;
+        userList[userIndexFind].phone = newCel;
+        userList[userIndexFind].city = newCity;
 
-    let retornData = JSON.parse(localStorage.getItem("userRegistration"))
-
-    retornData = retornData.find(user => user.id === id)
-
-    if (retornData !== undefined) {
-
-        document.getElementById('name').value = retornData.name
-        document.getElementById('email').value = retornData.email
-        document.getElementById('phone').value = retornData.phone
-        document.getElementById('city').value = retornData.city
-
-        form.onsubmit = () => updateUserInfo(id)
-
+        localStorage.setItem('userRegistration', JSON.stringify(userList))
     }
 
+    closeModal();
+    window.location.reload();
 }
 
 
