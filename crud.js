@@ -123,19 +123,19 @@ function updateUser(id) {
         .getElementById('save-Value')
         .removeEventListener("click", ExecuteUser);
 
-    document.getElementById("title-modal").innerText = "Atualizar usuário";
-    document.getElementById("save-Value").innerText = "Atualizar";
+    document.getElementById("title-modal").innerText = "Update User";
+    document.getElementById("save-Value").innerText = "Update";
 
-    const retornoData = JSON.parse(localStorage.getItem("userRegistration"));
+    const retornData = JSON.parse(localStorage.getItem("userRegistration"));
 
-    const usuarioEncontrado = retornoData.find(
+    const UserFound = retornData.find(
         (userFind) => userFind.id == id
     );
 
-    document.getElementById('city').value = usuarioEncontrado.city
-    document.getElementById('name').value = usuarioEncontrado.name
-    document.getElementById('email').value = usuarioEncontrado.email
-    document.getElementById('phone').value = usuarioEncontrado.phone
+    document.getElementById('city').value = UserFound.city
+    document.getElementById('name').value = UserFound.name
+    document.getElementById('email').value = UserFound.email
+    document.getElementById('phone').value = UserFound.phone
 
     document
         .getElementById('save-Value').addEventListener('click', () => updateUserInfos(id))
@@ -144,7 +144,7 @@ function updateUser(id) {
 function updateUserInfos(id) {
     const newName = document.getElementById("name").value;
     const newEmail = document.getElementById("email").value;
-    const newCel = document.getElementById("phone").value;
+    const newPhone = document.getElementById("phone").value;
     const newCity = document.getElementById("city").value;
 
     const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
@@ -154,7 +154,7 @@ function updateUserInfos(id) {
     if (userIndexFind !== -1) {
         userList[userIndexFind].name = newName;
         userList[userIndexFind].email = newEmail;
-        userList[userIndexFind].phone = newCel;
+        userList[userIndexFind].phone = newPhone;
         userList[userIndexFind].city = newCity;
 
         localStorage.setItem('userRegistration', JSON.stringify(userList))
