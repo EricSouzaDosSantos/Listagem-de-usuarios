@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/records.css">
-    <script src="./script.js" defer></script>
+    <script src="script.js" defer></script>
     <title>CRUD Users</title>
 </head>
 <body>
@@ -71,7 +71,7 @@
 
                 </header>
 
-                <form method="post" onsubmit="Execute(event)" class="modal-form">
+                <form method="post" onsubmit="Execute(event)" id="form" class="modal-form">
 
                     <input type="text" class="modal-field" placeholder="enter your name" id="name">
 
@@ -83,7 +83,7 @@
 
                 <footer class="modal-footer">
 
-                    <button class="button green" type="submit">
+                    <button class="button green" type="submit" id="saveValue">
                         Save
                     </button>
 

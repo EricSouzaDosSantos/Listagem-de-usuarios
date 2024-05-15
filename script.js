@@ -97,7 +97,7 @@ const BuildTable = (listUsers) => {
             </td>
 
             <td data-cell="buttons">
-                <button type="button" class="button green" onclick="updateUser(${people.id}, '${people.name}', '${people.phone}', '${people.city}', '${people.email}')">update</button>
+                <button type="button" class="button green" onclick="updateUser(${people.id})">update</button>
                 <button type="button" class="button red" onclick="deleteUser(${people.id})">Delete</button>
             </td>
 
@@ -111,28 +111,78 @@ const BuildTable = (listUsers) => {
 
 }
 
-const updateUser = (id, name, phone, city, email) => {
-    let listUsers = JSON.parse(localStorage.getItem("userRegistration"));
-    const userIndex = listUsers.findIndex(user => user.id === id);
+function updateUser(id) {
+    openModal();
+  
+    document
+      .getElementById("form")
+      .removeEventListener("submit", Execute);
+  
+    document.getElementById("title-modal").innerText = "Atualizar usuário";
+    document.getElementById("saveValue").innerText = "Atualizar";
+  
+    const retornoData = JSON.parse(localStorage.getItem("userRegistration"));
+  
+    const usuarioEncontrado = retornoData.find(
+      (userFind) => userFind.id == id
+    );
+  
+    if (usuarioEncontrado === undefined) {
 
-    if (userIndex !== -1) {
-        const newName = document.getElementById('name').value=name
-        const newEmail = document.getElementById('email').value=email
-        const newCity = document.getElementById('city').value=city
-        const newPhone = document.getElementById('phone').value=phone
+        document.getElementById('name').value = usuarioEncontrado.name
+        document.getElementById('email').value = usuarioEncontrado.email
+        document.getElementById('phone').value = usuarioEncontrado.phone
+        document.getElementById('city').value = usuarioEncontrado.city
 
-        listUsers[userIndex].name = newName;
-        listUsers[userIndex].phone = newPhone;
-        listUsers[userIndex].city = newCity;
-        listUsers[userIndex].email = newEmail;
-
-        localStorage.setItem("userRegistration", JSON.stringify(listUsers));
-
-        LoadUser();
-
-        openModal();
+    }
+    document
+      .getElementById("form")
+      .addEventListener("submit", () => updateUserInfos(id));
+  }
+  
+  function updateUserInfos(id) {
+    const newName = document.getElementById("name").value;
+    const newEmail = document.getElementById("email").value;
+    const newCel = document.getElementById("phone").value;
+    const newCity = document.getElementById("city").value;
+    
+    const userList = JSON.parse(localStorage.getItem('userRegistration')) || []
+  
+    const userIndexFind = userList.findIndex((user) => user.idUser == id);
+  
+    if (userIndexFind !== -1) {
+      userList[userIndexFind].name = newName;
+      userList[userIndexFind].email = newEmail;
+      userList[userIndexFind].phone = newCel;
+      userList[userIndexFind].city = newCity;
+  
+      localStorage.setItem('userRegistration', JSON.stringify(userList))
     }
 }
+  
+
+// const updateUser = (id, name, phone, city, email) => {
+//     let listUsers = JSON.parse(localStorage.getItem("userRegistration"));
+//     const userIndex = listUsers.findIndex(user => user.id === id);
+
+//     if (userIndex !== -1) {
+//         const newName = document.getElementById('name').value=name
+//         const newEmail = document.getElementById('email').value=email
+//         const newCity = document.getElementById('city').value=city
+//         const newPhone = document.getElementById('phone').value=phone
+
+//         listUsers[userIndex].name = newName;
+//         listUsers[userIndex].phone = newPhone;
+//         listUsers[userIndex].city = newCity;
+//         listUsers[userIndex].email = newEmail;
+
+//         localStorage.setItem("userRegistration", JSON.stringify(listUsers));
+
+//         LoadUser();
+
+//         openModal();
+//     }
+// }
 
 const deleteUser = (id) => {
     let listUsers = JSON.parse(localStorage.getItem("userRegistration"))
